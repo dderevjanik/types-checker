@@ -1,0 +1,24 @@
+{
+  "name": "types-checker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "webpack-build": "webpack --module-bind ts=ts-loader content=./src/Content.ts background=./src/Background.ts",
+    "build": "npm run webpack-build -- --mode production --watch",
+    "dev": "npm run webpack-build -- --mode development --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chrome": "0.0.63",
+    "@types/node": "^9.6.1",
+    "ts-loader": "^4.1.0",
+    "typescript": "^2.8.1",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13"
+  }
+}
