@@ -5,9 +5,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "webpack-build": "webpack --module-bind ts=ts-loader content=./src/Content.ts background=./src/Background.ts",
-    "build": "npm run webpack-build -- --mode production --watch",
-    "dev": "npm run webpack-build -- --mode development --watch",
+    "build": "webpack --mode production --config ./webpack.config.js",
+    "dev": "webpack --mode development --config ./webpack.config.js --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

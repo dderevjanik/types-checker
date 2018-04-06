@@ -1,5 +1,5 @@
-import { TypesPackage } from "./types";
-import { callApi } from "./helpers";
+import { TypesPackage } from "./Types";
+import { callApi } from "./Helpers";
 
 const seconds = (s: number) => s * 1000;
 const minutes = (m: number) => seconds(60 * m);
@@ -11,7 +11,7 @@ const STORE_KEY = "TYPES";
 export class TypesStore {
   isOutdated: boolean = true;
   private _types: TypesPackage[] = [];
-  private _interval: NodeJS.Timer;
+  private _interval: number;
 
   constructor() {
     this.loadFromLocalStorage();
@@ -45,6 +45,7 @@ export class TypesStore {
    * @param reponName - name of repo, https://github.com/USER/REPO
    */
   findExactRepo(repoName: string): TypesPackage | undefined {
+    console.log("looking for: ", repoName);
     const foundRepo = this._types.find(t => t.p.toLowerCase() === repoName);
     if (foundRepo) {
       return foundRepo;

@@ -21,7 +21,7 @@ export type TypesPackage = {
   t: string;
 
   /**
-   * globals
+   * Globals
    */
   g: string[];
 
@@ -32,12 +32,12 @@ export type TypesPackage = {
   m: string[];
 
   /**
-   * project name
+   * Project url (it can be repository, documentation or product page)
    */
   p: string;
 
   /**
-   * library name
+   * Library name
    * @example "Selenium WebDriverJS"
    */
   l: string;

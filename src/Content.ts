@@ -1,10 +1,12 @@
 import { BackgroundAPI } from "./utils/Types";
 import { isNpmPackagePage, isGithubRepoPage } from "./utils/PageDetect";
+console.log("TC: intial");
 
 const getRepoName = () => /\/.*?\/(.*?)(\/|$)/.exec(location.pathname);
 const getPackageName = () => /\/package\/(.*?)(\/|$)/.exec(location.pathname);
 
 if (isGithubRepoPage()) {
+  console.log("TC: is GH");
   const match = getRepoName();
   if (match) {
     const repoName = "https://github.com" + match[0]; // match[0] = "usr/repo"
