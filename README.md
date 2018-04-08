@@ -7,10 +7,9 @@ Detects if npm packages has typescript types
 Chrome extension that will detect if currently visited javascript library has typescript
 types. Extension detects libraries on **Github** and **Npm**.
 
-* ![normal](dist/icon_dark_16.png) **probably** no types for a library
-* ![blue](dist/icon_16.png) there are types for a library with that name, use `npm i @types/LIB_NAME`
-* ![blue?](dist/icon_16.png) **probably** there are types for a library, first check, then `npm i @types/LIB_NAME`
-* ![green](dist/icon_green_16.png) library has own types, no additional `npm i`
+* ![normal](dist/icon_dark_16.png) Cannot detect any types for a LIBRARY
+* ![blue](dist/icon_blue_16.png) Use `npm install @types/LIBRARY`
+* ![green](dist/icon_green_16.png) LIBRARY has types, no need to install @types
 
 ## 2. How detection works ?
 
