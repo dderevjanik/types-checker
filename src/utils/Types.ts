@@ -1,7 +1,11 @@
 export type BackgroundAPI =
   | {
       type: "REPO_INIT";
-      name: string;
+      /**
+       * usr/repo
+       */
+      repoUrl: string;
+      repoName: string;
     }
   | {
       type: "PACKAGE_INIT";

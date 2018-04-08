@@ -11,7 +11,7 @@ const STORE_KEY = "TYPES";
 export class TypesStore {
   isOutdated: boolean = true;
   private _types: TypesPackage[] = [];
-  private _interval: number;
+  private _interval: number | NodeJS.Timer;
 
   constructor() {
     this.loadFromLocalStorage();
@@ -45,8 +45,7 @@ export class TypesStore {
    * @param reponName - name of repo, https://github.com/USER/REPO
    */
   findExactRepo(repoName: string): TypesPackage | undefined {
-    console.log("looking for: ", repoName);
-    const foundRepo = this._types.find(t => t.p.toLowerCase() === repoName);
+    const foundRepo = this._types.find(t => t.t.toLowerCase() === repoName);
     if (foundRepo) {
       return foundRepo;
     }

@@ -4,9 +4,9 @@
   "devtools_page": "devtools.html",
   "description": "Check if packages has Typescript types",
   "icons": {
-    "128": "icon_128.png",
-    "48": "icon_48.png",
-    "16": "icon_16.png"
+    "128": "icon_dark_128.png",
+    "48": "icon_dark_48.png",
+    "16": "icon_dark_16.png"
   },
   "web_accessible_resources": ["resources/*"],
   "version": "1.0",
@@ -22,9 +22,9 @@
   ],
   "browser_action": {
     "default_icon": {
-      "128": "icon_128.png",
-      "48": "icon_48.png",
-      "16": "icon_16.png"
+      "128": "icon_dark_128.png",
+      "48": "icon_dark_48.png",
+      "16": "icon_dark_16.png"
     }
   },
   "background": {
