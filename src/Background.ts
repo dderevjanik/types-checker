@@ -1,43 +1,48 @@
 import { BackgroundAPI, TypesPackage } from "./utils/Types";
-import { callApi } from "./utils/Helpers";
 import { TypesStore } from "./utils/TypesStore";
+import { setPopupIcon } from "./utils/ChromeUtils";
+import * as Network from "./utils/Network";
+
 const typesStore = new TypesStore();
 
 chrome.runtime.onMessage.addListener(async (message: BackgroundAPI, sender) => {
   switch (message.type) {
-    case "PACKAGE_INIT": {
+    case "NPM_PACKAGE": {
       const packg = typesStore.findExactPackage(message.name);
       if (packg) {
-        chrome.browserAction.setIcon({
-          tabId: sender.tab!.id!,
-          path: "icon_blue_48.png"
-        });
+        setPopupIcon(sender.tab!.id!, "icons/icon_blue_48.png");
+        break;
+      }
+      if (message.repoUrl.length > 0) {
+        console.log("trying to find a package");
+        // Try to find `typings` inside a package.json
+        const { response, error } = await Network.getPackageFromGH(message.repoUrl.slice(19, message.repoUrl.length));
+        if (error) {
+          break;
+        } else {
+          if ("typings" in response) {
+            setPopupIcon(sender.tab!.id!, "icons/icon_green_48.png");
+          }
+        }
       }
       break;
     }
-    case "REPO_INIT": {
+    case "GH_REPOSITORY": {
       try {
         // Try to find `typings` inside a package.json
-        const { response, error } = await callApi(
-          `https://raw.githubusercontent.com/${message.repoUrl}/master/package.json`
-        );
+        const { response, error } = await Network.getPackageFromGH(message.repoUrl);
         if (error) {
           throw new Error(error);
         }
         if ("typings" in response) {
-          chrome.browserAction.setIcon({
-            tabId: sender.tab!.id!,
-            path: "icon_green_48.png"
-          });
+          setPopupIcon(sender.tab!.id!, "icons/icon_green_48.png");
           break;
         }
       } catch {}
+
       const repo = typesStore.findExactRepo(message.repoName);
       if (repo) {
-        chrome.browserAction.setIcon({
-          tabId: sender.tab!.id!,
-          path: "icon_blue_48.png"
-        });
+        setPopupIcon(sender.tab!.id!, "icons/icon_blue_48.png");
       }
       break;
     }

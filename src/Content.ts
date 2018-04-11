@@ -8,20 +8,26 @@ if (isGithubRepoPage()) {
   const match = getRepoName();
   if (match) {
     const repoUrl = "https://github.com" + match[0]; // match[0] = "usr/repo"
-    chrome.runtime.sendMessage({
-      type: "REPO_INIT",
-      repoName: match[1],
-      repoUrl
-    } as BackgroundAPI);
+    const hasPackage = document.querySelector('a.js-navigation-open[title="package.json"]') ? true : false;
+    if (hasPackage) {
+      // It is a javascript library
+      chrome.runtime.sendMessage({
+        type: "GH_REPOSITORY",
+        repoName: match[1], // "repo"
+        repoUrl
+      } as BackgroundAPI);
+    }
   }
 } else if (isNpmPackagePage()) {
   const match = getPackageName();
   if (match) {
-    // document.querySelectorAll('div:nth-child(4)>div>p>.link') <a href={REPO_LINK}/>
-    const packageName = match[1];
+    const packageName = match[1]; // "package"
+    const linkToRepo = document.querySelector("div>div:nth-child(8)>p>.link") as HTMLAnchorElement | undefined;
+    console.log((window as any).__context__);
     chrome.runtime.sendMessage({
-      type: "PACKAGE_INIT",
-      name: packageName
+      type: "NPM_PACKAGE",
+      name: packageName,
+      repoUrl: linkToRepo && linkToRepo.href.startsWith("https://github.com") ? linkToRepo.href : ""
     } as BackgroundAPI);
   }
 }

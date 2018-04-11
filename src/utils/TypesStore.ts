@@ -1,11 +1,9 @@
 import { TypesPackage } from "./Types";
-import { callApi } from "./Helpers";
+import * as Network from "./Network";
 
 const seconds = (s: number) => s * 1000;
 const minutes = (m: number) => seconds(60 * m);
 const hours = (h: number) => minutes(60 * h);
-
-const URL = "https://typespublisher.blob.core.windows.net/typespublisher/data/search-index-min.json";
 const STORE_KEY = "TYPES";
 
 export class TypesStore {
@@ -53,7 +51,7 @@ export class TypesStore {
   }
 
   async update() {
-    const { response, error } = (await callApi(URL)) as any;
+    const { response, error } = (await Network.getTypesPackages()) as any;
     if (error) {
       // Probably no internet connection
       return;

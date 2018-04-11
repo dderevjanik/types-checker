@@ -1,6 +1,6 @@
 export type BackgroundAPI =
   | {
-      type: "REPO_INIT";
+      type: "GH_REPOSITORY";
       /**
        * usr/repo
        */
@@ -8,8 +8,12 @@ export type BackgroundAPI =
       repoName: string;
     }
   | {
-      type: "PACKAGE_INIT";
+      type: "NPM_PACKAGE";
       name: string;
+      /**
+       * https://github.com/usr/repo
+       */
+      repoUrl: string;
     };
 
 export type PopupAPI = {
