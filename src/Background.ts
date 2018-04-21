@@ -1,6 +1,6 @@
 import { BackgroundAPI, TypesPackage } from "./utils/Types";
 import { TypesStore } from "./utils/TypesStore";
-import { setPopupIcon } from "./utils/ChromeUtils";
+import { setPopupIcon, setPopupTitle } from "./utils/ChromeUtils";
 import * as Network from "./utils/Network";
 
 const typesStore = new TypesStore();
@@ -11,6 +11,7 @@ chrome.runtime.onMessage.addListener(async (message: BackgroundAPI, sender) => {
       const packg = typesStore.findExactPackage(message.name);
       if (packg) {
         setPopupIcon(sender.tab!.id!, "icons/icon_blue_48.png");
+        setPopupTitle(sender.tab!.id!, `npm i @types/${message.name}`);
         break;
       }
       if (message.repoUrl.length > 0) {
@@ -22,6 +23,7 @@ chrome.runtime.onMessage.addListener(async (message: BackgroundAPI, sender) => {
         } else {
           if ("typings" in response) {
             setPopupIcon(sender.tab!.id!, "icons/icon_green_48.png");
+            setPopupTitle(sender.tab!.id!, "package includes type definitions");
           }
         }
       }
@@ -36,6 +38,7 @@ chrome.runtime.onMessage.addListener(async (message: BackgroundAPI, sender) => {
         }
         if ("typings" in response) {
           setPopupIcon(sender.tab!.id!, "icons/icon_green_48.png");
+          setPopupTitle(sender.tab!.id!, "package includes type definitions");
           break;
         }
       } catch {}
@@ -43,6 +46,7 @@ chrome.runtime.onMessage.addListener(async (message: BackgroundAPI, sender) => {
       const repo = typesStore.findExactRepo(message.repoName);
       if (repo) {
         setPopupIcon(sender.tab!.id!, "icons/icon_blue_48.png");
+        setPopupTitle(sender.tab!.id!, `npm i @types/${message.repoName}`);
       }
       break;
     }

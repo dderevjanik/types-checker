@@ -5,10 +5,16 @@ export type BackgroundAPI =
        * usr/repo
        */
       repoUrl: string;
+      /**
+       * repo
+       */
       repoName: string;
     }
   | {
       type: "NPM_PACKAGE";
+      /**
+       * package
+       */
       name: string;
       /**
        * https://github.com/usr/repo
@@ -21,6 +27,9 @@ export type PopupAPI = {
   name: string;
 };
 
+/**
+ * Obtained from https://github.com/Microsoft/TypeSearch/blob/master/assets/script/search.ts#L3
+ */
 export type TypesPackage = {
   /**
    * types package name

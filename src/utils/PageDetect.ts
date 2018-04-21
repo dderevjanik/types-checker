@@ -3,6 +3,7 @@ const isRepo = () =>
   !location.pathname.startsWith("/trending") &&
   !location.pathname.startsWith("gist.") &&
   !location.pathname.startsWith("gist/");
+
 export function isGithubRepoPage() {
   if (location.hostname.includes("github") && isRepo()) {
     return true;
